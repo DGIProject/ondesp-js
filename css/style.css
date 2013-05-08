@@ -1,0 +1,65 @@
+
+/* le bloc contenant les dragBoxes
+-------------------------------------- */
+#container{
+    height: 800px;
+    margin: 1em 0;
+    border: 2px dashed #ccc;
+    padding: 1em;
+    background-color: #fafaff;
+}
+
+/* commun � toutes mes dragBoxes
+-------------------------------------- */
+
+.dragBox { /*la bo�te */
+    border: 3px solid #000;
+    background-color: #fff;
+    width: 150px;
+    height: 150px;
+    float: left;
+    margin: 0 1em 1em 0;
+    text-align: left;
+    cursor: move;
+
+    box-shadow: 2px 2px 8px #777;
+    -o-box-shadow: 2px 2px 8px #777;
+    -moz-box-shadow: 2px 2px 8px #777;
+    -webkit-box-shadow: 2px 2px 8px #777;
+    border-radius: 6px;
+    -o-border-radius: 6px;
+    -moz-border-radius: 6px;
+    -webkit-border-radius: 6px;
+}
+
+.dragBox p { /* le paragraphe dans la bo�te */
+    padding: 0.5em;
+}
+
+.dragBox h5 { /* le titre/poign�e de la bo�te */
+    margin:0;
+    font-size:1em;
+    background:#FCC;
+    cursor:move;
+    font-family: "Trebuchet MS",Verdana,"Lucida Grande",Tahoma,Helvetica,Sans-Serif;
+    font-weight: normal;
+    color: #333;
+    text-shadow: 1px 1px 3px #fff;
+    border-bottom: 3px dotted #ccc;
+
+    text-align: center;
+    text-shadow: 1px 1px 1px #fff;
+    border-radius: 6px 6px 0px 0px;
+    -o-border-radius: 6px 6px 0px 0px;
+    -moz-border-radius: 6px 6px 0px 0px;
+    -webkit-border-top-left-radius: 6px;
+    -webkit-border-top-right-radius: 6px;
+}
+
+
+
+/* sp�cificit�s de chaque dragBox
+-------------------------------------- */
+#dragBox1 { border-color: #66F; }
+
+#canvas { border-color: #6ee; }
