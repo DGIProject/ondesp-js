@@ -3,11 +3,9 @@
 <head>
     <meta charset="utf-8">
     <title>Tracer avec canvas</title>
-
-    <link type="text/css" href="css/style.css" rel="stylesheet">
-
-    <script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
-    <script type="text/javascript" src="js/dragOn.src.js"></script>
+    <script src="js/jquery-1.9.1.min.js" type="text/javascript"></script>
+    <script src="js/dragOn.src.js"></script>
+	<link type="text/css" href="css/style.css" rel="stylesheet">
     <script>
         var tableauPosition = [];
         function clicCanevas(event) {
@@ -35,22 +33,26 @@
 </head>
 <body>
 <div id="container">
-    <div id="dragBox1" class="dragBox" style="width: 500px; height: 500px; position: absolute; z-index: 4;"><canvas id="canvas" style="width: 400px; height: 400px;"></canvas></div>
+<div id="dragBox1" class="dragBox">Fenetre du graph
+<canvas width="500" height="500" id="canevas">
+    Nécessite Canvas
+</canvas></div>
 </div>
 <script>
-    dragOn.apply(document.getElementById("dragBox1"), {
-        moveArea: document.getElementById("container")
-    });
-
-    var canvas = $("#canvas");
+    var canvas = $("#canevas");
     var ctx = canvas[0].getContext("2d");
-    canvas.on("click", ctx, function (event) {
+    canvas.on("dblclick", ctx, function (event) {
         $(this).on('mousemove', event.data, clicCanevas);
         $(this).on('click',
                 function () {
                     $(this).off('mousemove');
                 })
     });
+	  dragOn.apply(document.getElementById("dragBox1"), {
+        moveArea: document.getElementById("container")		 
+    });
+
+    
     //canvas.on('mousemove',ctx,clicCanevas);
 
 </script>
