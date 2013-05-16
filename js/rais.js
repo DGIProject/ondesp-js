@@ -8,8 +8,8 @@
  */
 terre = {
 	rayon: 300,
-	x: 400,
-	y: 400,
+	posX: 400,
+	posY: 400,
 	vitesseInitiale: 6.5,
 	tabVitesses: [],
 	epicentre: {
@@ -35,7 +35,7 @@ Rai.prototype.profondeur = function() {
 	 * à partir des coordonnées this.posX, this.posY et des constantes définissant la Terre,
 	 * retourne la valeur de profondeur du front du rai
 	 */
-	prof = terre.rayon - Math.floor( Math.sqrt( (this.posX - terre.x)^2 + (this.posY - terre.y)^2 ) ); //Pythagore !
+	prof = terre.rayon - Math.floor( Math.sqrt( (this.posX - terre.posX)^2 + (this.posY - terre.posY)^2 ) ); //Pythagore !
 	
 	return prof;
 }
