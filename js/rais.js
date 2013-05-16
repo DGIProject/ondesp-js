@@ -35,6 +35,7 @@ Rai.prototype.profondeur = function() {
 	 * à partir des coordonnées this.posX, this.posY et des constantes définissant la Terre,
 	 * retourne la valeur de profondeur du front du rai
 	 */
+	prof = terre.rayon - Math.floor( Math.sqrt( (this.posX - terre.x)^2 + (this.posY - terre.y)^2 ) ); //Pythagore !
 	
 	return prof;
 }
