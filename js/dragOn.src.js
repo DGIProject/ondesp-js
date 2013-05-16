@@ -1,3 +1,4 @@
+
 function addEvent (obj, evType, fn, useCapture){
 	if (obj.addEventListener) { obj.addEventListener(evType, fn, useCapture); }
 	else { obj.attachEvent("on"+evType, fn); }

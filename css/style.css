@@ -1,13 +1,12 @@
-
 body, html {
-            width: 100%;
-            height: 100%;
-} 
+    width: 100%;
+    height: 100%;
+}
 
 /* le bloc contenant les dragBoxes
 -------------------------------------- */
-#container{
-    height: 100%;
+#container {
+    height: 90%;
     margin: 1em 0;
     border: 2px dashed #ccc;
     padding: 1em;
@@ -17,14 +16,15 @@ body, html {
 /* commun � toutes mes dragBoxes
 -------------------------------------- */
 
-.dragBox { /*la bo�te */
+.dragBox {
+    /*la bo�te */
     border: 2px solid #000;
     background-color: #fff;
     float: left;
     margin: 0 1em 1em 0;
     text-align: left;
     cursor: move;
-    z-index :4;
+    z-index: 4;
 
     box-shadow: 2px 2px 8px #777;
     -o-box-shadow: 2px 2px 8px #777;
@@ -36,16 +36,18 @@ body, html {
     -webkit-border-radius: 6px;
 }
 
-.dragBox p { /* le paragraphe dans la bo�te */
+.dragBox p {
+    /* le paragraphe dans la bo�te */
     padding: 0.5em;
 }
 
-.dragBox h5 { /* le titre/poign�e de la bo�te */
-    margin:0;
-    font-size:1em;
-    background:#FCC;
-    cursor:move;
-    font-family: "Trebuchet MS",Verdana,"Lucida Grande",Tahoma,Helvetica,Sans-Serif;
+.dragBox h5 {
+    /* le titre/poign�e de la bo�te */
+    margin: 0;
+    font-size: 1em;
+    background: #FCC;
+    cursor: move;
+    font-family: "Trebuchet MS", Verdana, "Lucida Grande", Tahoma, Helvetica, Sans-Serif;
     font-weight: normal;
     color: #333;
     text-shadow: 1px 1px 3px #fff;
@@ -60,18 +62,45 @@ body, html {
     -webkit-border-top-right-radius: 6px;
 }
 
-
-
 /* sp�cificit�s de chaque dragBox
 -------------------------------------- */
-#dragBox1 { border-color: #66F; 
-width: 500px;
-height :20px;
-position :absolute;
+#dragBox1 {
+    border-color: #66F;
+    width: 650px;
+    height: 20px;
+    position: absolute;
 }
 
 #canevas {
-width : 500px;
-height : 500px;
-border: 1px solid #000;
+    width: 650px;
+    height: 500px;
+    border: 1px solid #000;
+    box-shadow: 2px 2px 8px #777;
+    -o-box-shadow: 2px 2px 8px #777;
+    -moz-box-shadow: 2px 2px 8px #777;
+    -webkit-box-shadow: 2px 2px 8px #777;
+
+    -webkit-border-top-left-radius: 6px;
+    -webkit-border-top-right-radius: 6px;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+
+    background-color: #fff;
+    border-color: #66F;
+    cursor: default;
+
+}
+
+#dragBox2 {
+    width: 800px;
+    height: 20px;
+    position: absolute;
+    left: 25%;
+}
+
+#canevasGlobe {
+    width: 800px;
+    height: 800px;
+    background-color: #fff;
+    cursor: default;
 }
