@@ -6,7 +6,7 @@
  * To change this template use File | Settings | File Templates.
  */
 var tableauPosition = [[0,474]]; // initialisation du point avec les coordonée minimale  soit (6.5m/s)
-var canvas = $("#canevas");
+var canvas = $("#canvas");
 var ctx = canvas[0].getContext("2d");
 makeGraduation(ctx)
 canvas.on("dblclick", ctx, function (event) {
@@ -19,7 +19,7 @@ canvas.on("dblclick", ctx, function (event) {
         })
 });
 
-dragOn.apply(document.getElementById("dragBox1"), {
+dragOn.apply(document.getElementById("dragBox"), {
     moveArea: document.getElementById("container")
 });
 
@@ -29,16 +29,16 @@ circle(350, 350, 50); //Noyau Terre
 circle(515,100,4,"FF4422") //pount de depart
 
 function clicCanevas(event) {
-    var x = event.pageX - $('#canevas').offset().left;
-    var y = event.pageY - $('#canevas').offset().top;
+    var x = event.pageX - $('#canvas').offset().left;
+    var y = event.pageY - $('#canvas').offset().top;
     var pos = [];
     pos.push(x, y);
 
     tracePoint(event.data, x, y, pos);
 }
 function showValues(event) {
-    var x = event.pageX - $('#canevas').offset().left;
-    var y = event.pageY - $('#canevas').offset().top;
+    var x = event.pageX - $('#canvas').offset().left;
+    var y = event.pageY - $('#canvas').offset().top;
     var propValueX = x * 6500 / 650, propValueY = 125-(1 / 4 * y);
     document.getElementById('verticalValue').innerHTML = propValueY;
     document.getElementById('horizontalValue').innerHTML = propValueX;
@@ -61,7 +61,7 @@ function tracePoint(ctx, x, y, posTab) {
 }
 function circle(x, y, radus, color) {
 
-    var canvasGlobes = $('#canevasGlobe');
+    var canvasGlobes = $('#canvasGlobe');
     var ctxGlobe = canvasGlobes[0].getContext("2d")
     ctxGlobe.beginPath();
     ctxGlobe.lineWidth = "2";
@@ -80,7 +80,7 @@ function circle(x, y, radus, color) {
 }
 function calculateRay()
 {
-    canvas = $("#canevasGlobe");
+    canvas = $("#canvasGlobe");
     ctxL = canvas[0].getContext("2d");
     nbRay = document.getElementById('numberOfRay').value;
     angle = 180/(parseInt(nbRay)+2);
@@ -98,7 +98,7 @@ function drawLine(fromX, fromY, toX, toY, ctx)
 }
 function reini()
 {
-    canvas = document.getElementById('canevas');
+    canvas = document.getElementById('canvas');
     ctxL = canvas.getContext("2d");
     ctxL.clearRect(0, 0, canvas.width, canvas.height);
     tableauPosition = [[0,474]];

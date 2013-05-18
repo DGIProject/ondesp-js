@@ -9,21 +9,36 @@
 </head>
 <body>
 <div id="container">
-<div id="dragBox2">
-    <canvas width="800" height="800" id="canevasGlobe">
+    <div id="title">OndesP</div>
+
+    <canvas width="800" height="800" id="canvasGlobe">
         Nécessite Canvas
     </canvas>
-    <div id="valueSelect">Nombre de ray <input type="number" name="num" value="10" id="numberOfRay" onchange="calculateRay()"/></div>
+
+    <div id="properties">
+        <div style="margin-top: 0px;border: 3px solid #99b2ff;background-color: #99b2ff;color: #d0d0d0;text-align: center;cursor: move;">Properties</div>
+        <div id="inner">
+            <h4>1. Graphique</h4>
+            <div id="verticalAxe">Vitesse : <span id="verticalValue"></span> m/s</div>
+            <div id="harizontalAxe">Profondeur : <span id="horizontalValue"></span> Km</div>
+            </br>
+            <div id="reinit"><input id="btnrenini" type="button" class="btn" value="Réinitialiser" onclick="reini();"/></div>
+
+            <h4>2. Globe</h4>
+            <div id="valueSelect">Nombre de ray <input type="number" name="num" value="10" id="numberOfRay" onchange="calculateRay()"/></div>
+
+            <h4>3. Tools</h4>
+            <button type="button" class="btn">Start</button>
+        </div>
+    </div>
+
+    <div id="dragBox">
+        <div style="margin-top: 0px;border: 3px solid #66F;background-color: #66F;color: #d0d0d0;text-align: center;cursor: move;">Graphique</div>
+        <canvas id="canvas" width="650" height="500">
+            Nécessite Canvas
+        </canvas>
+    </div>
 </div>
-<div id="dragBox1"  class="dragBox">Fenetre du graph
-    <canvas id="canevas" width="650" height="500">
-        Nécessite Canvas
-    </canvas>
-    <div id="verticalAxe">Vitesse (m/s): <span id="verticalValue"></span> m/s</div>
-    <div id="harizontalAxe">Profondeur (Km): <span id="horizontalValue"></span> Km</div>
-    <div id="reinit"><input id="btnrenini" type="button" value="Réinitialiser" onclick="reini();"/></div>
-</div>
-</div>
-<script type="text/javascript" src="js/main.js  "></script>
+<script type="text/javascript" src="js/main.js"></script>
 </body>
 </html>
