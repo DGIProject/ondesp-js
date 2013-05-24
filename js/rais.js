@@ -25,7 +25,8 @@ Rai = function(angle) {
 	this.posX = terre.epicentre.posX;
 	this.posY = terre.epicentre.posY;
 	this.angle = angle;
-	this.vitesse = terre.vitesseInitiale
+	this.vitesse = terre.vitesseInitiale;
+	this.vitessePrecedente = terre.vitesseInitiale;
 	this.prof = 1; //la condition de sortie des boucles est à une profondeur de 0 on commence donc tous les rais à 1km de prof
 }
 
@@ -61,6 +62,8 @@ Rai.prototype.vitesse = function() {
 	/*
 	 * À partir du tableau de vitesses, retourne la valeur de vitesse correspondant à la profondeur (this.prof)
 	 */
+	var profondeurMod10 = Math.floor( this.prof / terre.rayon * 650 )
+	v = terre.tabVitesses[ profondeurMod10 ];
 	
 	return v;
 }
