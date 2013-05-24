@@ -47,6 +47,11 @@ Rai.prototype.angleSurf = function() {
 	 * retourne l'angle entre la surface passant par ces coordonnées et la verticale de l'écran
 	 * 
 	 */
+
+    var coteOppose = terre.posX - this.posX;
+    var coteAdjacent = terre.posY - this.posY;
+
+    angle = Math.floor(Math.atan2(coteOppose, coteAdjacent));
 	
 	return angle;
 }

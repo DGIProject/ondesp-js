@@ -28,12 +28,14 @@
             <div id="valueSelect">Nombre de ray <input type="number" name="num" value="10" id="numberOfRay" onchange="calculateRay()"/></div>
 
             <h4>3. Tools</h4>
-            <button type="button" class="btn">Start</button>
+            <button type="button" class="btn">Start génération</button>
+
+            <div id="minimizeGraph"></div>
         </div>
     </div>
 
     <div id="dragBox">
-        <div style="margin-top: 0px;border: 3px solid #66F;background-color: #66F;color: #d0d0d0;text-align: center;cursor: move;">Graphique</div>
+        <div style="margin-top: 0px;border: 3px solid #66F;background-color: #66F;color: #d0d0d0;text-align: center;cursor: move;">Graphique<button type="button" style="height: 10px;" onclick="minimizeGraph();"></button></div>
         <canvas id="canvas" width="650" height="500">
             Nécessite Canvas
         </canvas>

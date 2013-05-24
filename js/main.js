@@ -118,3 +118,15 @@ function makeGraduation(ctx)
     ctx.fillText("- 6.5 M/s", 0, 477)
     ctx.fillText("| 3250Km", 322,498)
 }
+
+function minimizeGraph()
+{
+    document.getElementById("dragBox").style.display = 'none';
+    document.getElementById("minimizeGraph").innerHTML = '<button type="button" class="btn" onclick="maximizeGraph();">Graphique</button>';
+}
+
+function maximizeGraph()
+{
+    document.getElementById("dragBox").style.display = '';
+    document.getElementById("minimizeGraph").innerHTML = '';
+}
