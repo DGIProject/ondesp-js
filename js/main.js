@@ -6,6 +6,7 @@
  * To change this template use File | Settings | File Templates.
  */
 var tableauPosition = [[0,474]]; // initialisation du point avec les coordonée minimale  soit (6.5m/s)
+var tableauViteseProf = [] //tableau contenant toutes les valeurs converties de la coube soit 650 valeurs. les pixels manquants sont rajouté et calculé
 var canvas = $("#canvas");
 var ctx = canvas[0].getContext("2d");
 makeGraduation(ctx)
@@ -15,7 +16,7 @@ canvas.on("dblclick", ctx, function (event) {
         function () {
             $(this).off('mousemove');
             canvas.on('mousemove', ctx, showValues);
-            traceLigneEntreCoord(ctx);
+            makeTabVitesse();
         })
 });
 
@@ -25,7 +26,7 @@ dragOn.apply(document.getElementById("dragBox"), {
 
 canvas.on('mousemove', ctx, showValues);
 circle(350, 350, 300); //Terre
-//circle(350, 350, 50); //Noyau Terre
+circle(350, 350, 50); //Noyau Terre
 circle(515,100,4,"FF4422") //pount de depart
 
 function clicCanevas(event) {
@@ -48,6 +49,10 @@ function tracePoint(ctx, x, y, posTab) {
     var lenght = tableauPosition.length;
         var lenth2 = lenght - 1;
     console.log("lenth: "+lenght+ " lenth2: "+ lenth2+" pos : "+ posTab+ "x: "+x+"y: "+y);
+
+    var propValueY = 125-(1 / 4 * y);
+    var tabVitesse = [];
+
 
     if (lenght == 0 || posTab[0] > tableauPosition[lenth2][0]) {
        // ctx.fillStyle = "#000" Ancienne ligne qui trace des points maintenant remplacé par des lignes
@@ -118,15 +123,50 @@ function makeGraduation(ctx)
     ctx.fillText("- 6.5 M/s", 0, 477)
     ctx.fillText("| 3250Km", 322,498)
 }
-
-function minimizeGraph()
+function makeTabVitesse()
 {
-    document.getElementById("dragBox").style.display = 'none';
-    document.getElementById("minimizeGraph").innerHTML = '<button type="button" class="btn" onclick="maximizeGraph();">Graphique</button>';
-}
+    tabvitesspx = []
+    tabTemp = []
+    for (i=0; i < tableauPosition.length; i++)
+    {
+     //utilisation de la formule (x'-x1)/(x2-x1)*(y2-y1)
+        ajout = 1
+        if (i == tableauPosition.length-1) {ajout= 0}
+        intervalToCalculate = tableauPosition[i+ajout][0] - tableauPosition[i][0]
+        for (i2=0;i2<intervalToCalculate;i2++)
+        {
+            newX = tableauPosition[i][0]+i2
+           pixelVitese = (newX-tableauPosition[i][0])/(tableauPosition[i+ajout][0]-tableauPosition[i][0])*(tableauPosition[i+ajout][1]-tableauPosition[i][1])+tableauPosition[i][1]
+           temp = [newX, pixelVitese]
+            tabvitesspx.push(temp)
+        }
+    }
+    if (tabvitesspx.length < 650)
+    {
+        manque = 650-tabvitesspx.length
+        lenbth = tabvitesspx.length-1
+        console.log(manque)
+        lastValue = [tabvitesspx[lenbth][0],tabvitesspx[lenbth][1]]
+        console.log(lastValue)
+        for(i7=0;i7<manque;i7++)
+        {
+            newi = i7+1+lenbth
+            y = lastValue[1]
+            tabvitesspx.push([newi,y])
+        }
+    }
 
-function maximizeGraph()
-{
-    document.getElementById("dragBox").style.display = '';
-    document.getElementById("minimizeGraph").innerHTML = '';
+    //boulcle a faire pour resortir des vitesse et des profondeur dans un tableau :
+    for (i3=0;i3 < tabvitesspx.length;i3++)
+    {
+        /*ctx.beginPath(); //affichage de test pour verifier que les valeurs calculées correspondes aux valeurs tracées
+        ctx.moveTo(tabvitess[i3][0],tabvitess[i3][1]);
+        ctx.lineTo(tabvitess[i3+1][0],tabvitess[i3+1][1]);
+        ctx.strokeStyle='#33FF33';
+        ctx.stroke();*/
+        var propValueX = tabvitesspx[i3][0] * 6500 / 650
+        var propValueY = 125-(1 / 4 * tabvitesspx[i3][1]);
+        temp = [propValueX,propValueY]
+        tableauViteseProf.push(temp);
+    }
 }
