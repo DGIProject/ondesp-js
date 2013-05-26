@@ -168,7 +168,7 @@ function minimizeGraph() {
     document.getElementById("minimizeGraph").innerHTML = '<button type="button" class="btn" onclick="maximizeGraph();">Graphique</button>';
 }
 
-+function maximizeGraph() {
+function maximizeGraph() {
     document.getElementById("dragBox").style.display = '';
     document.getElementById("minimizeGraph").innerHTML = '';
 }
