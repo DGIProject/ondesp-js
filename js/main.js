@@ -26,7 +26,7 @@ dragOn.apply(document.getElementById("dragBox"), {
 
 canvas.on('mousemove', ctx, showValues);
 circle(350, 350, 300); //Terre
-circle(350, 350, 50); //Noyau Terre
+//circle(350, 350, 50); //Noyau Terre
 circle(515,100,4,"FF4422") //pount de depart
 
 function clicCanevas(event) {
