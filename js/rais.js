@@ -15,16 +15,17 @@ terre = {
 	epicentre: {
 		posX: 400,
 		posY: 100
-	}
+	},
+	pasTemporel: 200
 }
 
 /*
  * prototype d'objets Rai
  */
 Rai = function(angle) {
-	this.posX = terre.epicentre.posX;
-	this.posY = terre.epicentre.posY;
-	this.angle = angle;
+	this.posX = terre.epicentre.posX | 0;
+	this.posY = terre.epicentre.posY | 0;
+	this.angleIncidence = angle / 180 * Math.PI;
 	this.vitesse = terre.vitesseInitiale;
 	this.vitessePrecedente = terre.vitesseInitiale;
 	this.prof = 1; //la condition de sortie des boucles est à une profondeur de 0 on commence donc tous les rais à 1km de prof
@@ -52,7 +53,7 @@ Rai.prototype.angleSurf = function() {
     var coteOppose = terre.posX - this.posX;
     var coteAdjacent = terre.posY - this.posY;
 
-    angle = Math.floor(Math.atan2(coteOppose, coteAdjacent));
+    angle = Math.atan2(coteOppose, coteAdjacent);
 	
 	return angle;
 }
@@ -69,26 +70,30 @@ Rai.prototype.vitesse = function() {
 }
 
 Rai.prototype.nouvellePosition = function() {
-	var posX=0, posY=0;
+	var posX=0, posY=0, distance=0, inclinaisonSurface=0;
 	/*
 	 * À partir de la position précédente (this.posX...) et de l'angle du rayon incident par raport à la 
 	 * verticale de la surface, de la vitesse et d'un temps défini dans les constantes de l'univers,
 	 * calcule la nouvelle position
 	 */
+	distance = this.vitesse * terre.pasTemporel;
+	inclinaisonSurface = this.angleSurf();
+	
+	posX = this.posX;
 	
 	return {
-				x: posX,
-				y: posY,
-			}
+		x: posX,
+		y: posY
+	}
 }
 
 Rai.prototype.nouvelAngle = function() {
-	var angle;
+	var angle = 0;
 	/*
 	 * À partir de la position (this.posX, etc...), et donc de la profondeur, et de l'angle d'incidence,
 	 * utilise les lois de Descartes pour déterminer le nouvel angle des rayons (! au delà de la valeur limite, il
 	 * 	y a réflexion)
 	 */
-	
+	angle = Math.asin( (this.vitesse / this.vitessePrecedente) * Math.sin( this.angleIncidence ) );
 	return angle;
 }
