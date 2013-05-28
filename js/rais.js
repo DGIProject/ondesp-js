@@ -16,7 +16,8 @@ terre = {
 		posX: 400,
 		posY: 100
 	},
-	pasTemporel: 200
+	pasTemporel: 200,
+	echelle: this.rayon/6500
 }
 
 /*
@@ -76,10 +77,11 @@ Rai.prototype.nouvellePosition = function() {
 	 * verticale de la surface, de la vitesse et d'un temps défini dans les constantes de l'univers,
 	 * calcule la nouvelle position
 	 */
-	distance = this.vitesse * terre.pasTemporel;
+	distance = this.vitesse * terre.pasTemporel * terre.echelle;
 	inclinaisonSurface = this.angleSurf();
 	
-	posX = this.posX;
+	posX = this.posX + Math.floor(distance * Math.sin(inclinaisonSurface + this.angleIncidence));
+	posY = this.posY + Math.floor(distance * Math.cos(inclinaisonSurface + this.angleIncidence));
 	
 	return {
 		x: posX,
