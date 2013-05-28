@@ -3,9 +3,12 @@
 <head>
     <meta charset="utf-8">
     <title>Tracer avec canvas</title>
-    <script src="js/jquery-1.9.1.min.js" type="text/javascript"></script>
-    <script src="js/dragOn.src.js"></script>
     <link type="text/css" href="css/style.css" rel="stylesheet">
+    <script src="js/jquery-1.9.1.min.js"></script>
+    <script src="js/dragOn.src.js"></script>
+    <script src="js/rais.js"></script>
+    
+    
 </head>
 <body>
 <div id="container">
@@ -25,7 +28,7 @@
             <div id="reinit"><input id="btnrenini" type="button" class="btn" value="Réinitialiser" onclick="reini();"/></div>
 
             <h4>2. Globe</h4>
-            <div id="valueSelect">Nombre de ray <input type="number" name="num" value="10" id="numberOfRay" onchange="calculateRay()"/></div>
+            <div id="valueSelect">Nombre de rais <input type="number" name="num" value="10" id="numberOfRay" onchange="calculateRay()"/></div>
 
             <h4>3. Tools</h4>
             <button type="button" class="btn">Start génération</button>
@@ -41,6 +44,6 @@
         </canvas>
     </div>
 </div>
-<script type="text/javascript" src="js/main.js"></script>
+<script src="js/main.js"></script>
 </body>
 </html>
