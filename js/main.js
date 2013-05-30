@@ -11,7 +11,10 @@ var tableauPosition = [
 var tableauViteseProf = [] //tableau contenant toutes les valeurs converties de la coube soit 650 valeurs. les pixels manquants sont rajouté et calculé
 var canvas = $("#canvas");
 var ctx = canvas[0].getContext("2d");
-makeGraduation(ctx)
+var canvasGlobes = $('#canvasGlobe');
+var ctxGlobe = canvasGlobes[0].getContext("2d")
+makeGraduation()
+
 canvas.on("dblclick", ctx, function (event) {
     $(this).on('mousemove', event.data, clicCanevas);
     $(this).on('click',
@@ -28,7 +31,6 @@ dragOn.apply(document.getElementById("dragBox"), {
 
 canvas.on('mousemove', ctx, showValues);
 circle(350, 350, 300); //Terre
-//circle(350, 350, 50); //Noyau Terre
 circle(515, 100, 4, "FF4422") //pount de depart
 
 function clicCanevas(event) {
@@ -57,19 +59,14 @@ function tracePoint(ctx, x, y, posTab) {
 
 
     if (lenght == 0 || posTab[0] > tableauPosition[lenth2][0]) {
-        // ctx.fillStyle = "#000" Ancienne ligne qui trace des points maintenant remplacé par des lignes
-        //ctx.fillRect(x, y, 5, 5);
         tableauPosition.push(posTab);
-        traceLigneTempsReel(ctx, posTab[0], posTab[1]);
+        traceLigneTempsReel(posTab[0], posTab[1]);
     }
     else {
 
     }
 }
 function circle(x, y, radus, color) {
-
-    var canvasGlobes = $('#canvasGlobe');
-    var ctxGlobe = canvasGlobes[0].getContext("2d")
     ctxGlobe.beginPath();
     ctxGlobe.lineWidth = "2";
     ctxGlobe.arc(x, y, radus, 0, 2 * Math.PI);
@@ -80,19 +77,14 @@ function circle(x, y, radus, color) {
     else {
         ctxGlobe.stroke();
     }
-
-
 }
 function calculateRay() {
-    canvas = $("#canvasGlobe");
-    ctxL = canvas[0].getContext("2d");
-    nbRay = document.getElementById('numberOfRay').value;
-    angle = 180 / (parseInt(nbRay) + 2);
+    var nbRay = document.getElementById('numberOfRay').value;
+    var angle = 180 / (parseInt(nbRay) + 2);
     console.log("l'angle de depart des Rays est de :" + angle + " degreeé");
-    drawLine(300, 56, 250, 200, ctxL);
-
+    return {angle: angle, nbRais: nbRay};
 }
-function drawLine(fromX, fromY, toX, toY, ctx) {
+function drawLine(fromX, fromY, toX, toY) {
     ctx.beginPath();
     ctx.moveTo(fromX, fromY);
     ctx.lineTo(toX, toY);
@@ -100,19 +92,18 @@ function drawLine(fromX, fromY, toX, toY, ctx) {
     ctx.stroke();
 }
 function reini() {
-    canvas = document.getElementById('canvas');
-    ctxL = canvas.getContext("2d");
-    ctxL.clearRect(0, 0, canvas.width, canvas.height);
+
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
     tableauPosition = [
         [0, 474]
     ];
-    makeGraduation(ctxL);
+    makeGraduation();
 }
-function traceLigneTempsReel(ctx, x, y) {
+function traceLigneTempsReel(x, y) {
     var sizeof = tableauPosition.length - 2
-    drawLine(tableauPosition[sizeof][0], tableauPosition[sizeof][1], x, y, ctx);
+    drawLine(tableauPosition[sizeof][0], tableauPosition[sizeof][1], x, y);
 }
-function makeGraduation(ctx) {
+function makeGraduation() {
     ctx.font = "10pt Calibri,Geneva,Arial";
     ctx.fillStyle = "rgb(0,0,0)";
     ctx.fillText("Vitesse (m/s)", 10, 20);
@@ -121,30 +112,29 @@ function makeGraduation(ctx) {
     ctx.fillText("| 3250Km", 322, 498)
 }
 function makeTabVitesse() {
-    tabvitesspx = []
-    tabTemp = []
+    var tabvitesspx = []
     for (i = 0; i < tableauPosition.length; i++) {
         //utilisation de la formule (x'-x1)/(x2-x1)*(y2-y1)
-        ajout = 1
+        var ajout = 1
         if (i == tableauPosition.length - 1) {
             ajout = 0
         }
-        intervalToCalculate = tableauPosition[i + ajout][0] - tableauPosition[i][0]
+        var intervalToCalculate = tableauPosition[i + ajout][0] - tableauPosition[i][0]
         for (i2 = 0; i2 < intervalToCalculate; i2++) {
-            newX = tableauPosition[i][0] + i2
-            pixelVitese = (newX - tableauPosition[i][0]) / (tableauPosition[i + ajout][0] - tableauPosition[i][0]) * (tableauPosition[i + ajout][1] - tableauPosition[i][1]) + tableauPosition[i][1]
-            temp = [newX, pixelVitese]
+            var newX = tableauPosition[i][0] + i2
+            var pixelVitese = (newX - tableauPosition[i][0]) / (tableauPosition[i + ajout][0] - tableauPosition[i][0]) * (tableauPosition[i + ajout][1] - tableauPosition[i][1]) + tableauPosition[i][1]
+            var temp = [newX, pixelVitese]
             tabvitesspx.push(temp)
         }
     }
     if (tabvitesspx.length < 650) {
-        manque = 650 - tabvitesspx.length
-        lenbth = tabvitesspx.length - 1
+        var manque = 650 - tabvitesspx.length
+        var lenbth = tabvitesspx.length - 1
         console.log(manque)
-        lastValue = [tabvitesspx[lenbth][0], tabvitesspx[lenbth][1]]
+        var lastValue = [tabvitesspx[lenbth][0], tabvitesspx[lenbth][1]]
         console.log(lastValue)
         for (i7 = 0; i7 < manque; i7++) {
-            newi = i7 + 1 + lenbth
+            var newi = i7 + 1 + lenbth
             y = lastValue[1]
             tabvitesspx.push([newi, y])
         }
@@ -152,11 +142,6 @@ function makeTabVitesse() {
 
     //boulcle a faire pour resortir des vitesse et des profondeur dans un tableau :
     for (i3 = 0; i3 < tabvitesspx.length; i3++) {
-        /*ctx.beginPath(); //affichage de test pour verifier que les valeurs calculées correspondes aux valeurs tracées
-         ctx.moveTo(tabvitess[i3][0],tabvitess[i3][1]);
-         ctx.lineTo(tabvitess[i3+1][0],tabvitess[i3+1][1]);
-         ctx.strokeStyle='#33FF33';
-         ctx.stroke();*/
         var propValueX = tabvitesspx[i3][0] * 6500 / 650
         var propValueY = 125 - (1 / 4 * tabvitesspx[i3][1]);
         temp = [propValueX, propValueY]
@@ -171,4 +156,20 @@ function minimizeGraph() {
 function maximizeGraph() {
     document.getElementById("dragBox").style.display = '';
     document.getElementById("minimizeGraph").innerHTML = '';
+}
+
+function startGeneration() {
+    alert("Hi !");
+    var tabRais = [];
+    var r = calculateRay();
+    for (var i = 0; i < r.nbRais; i++) {
+        tabRais[i] = new Rai(r.angle * i);
+    }
+    tabRaisEnCour = (function (x) {
+        var tab = [];
+        for (var i = 0; i > x; i++) {
+            tab.push(i);
+        }
+        return tab;
+    })(r.nbRais)
 }
