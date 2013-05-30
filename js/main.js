@@ -167,9 +167,10 @@ function startGeneration() {
     }
     tabRaisEnCour = (function (x) {
         var tab = [];
-        for (var i = 0; i > x; i++) {
+        for (var i = 0; i < x; i++) {
             tab.push(i);
         }
         return tab;
     })(r.nbRais)
+    console.log(tabRaisEnCour);
 }
