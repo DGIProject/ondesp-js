@@ -84,12 +84,17 @@ function circle(x, y, radus, color) {
 
 }
 function calculateRay() {
-    canvas = $("#canvasGlobe");
-    ctxL = canvas[0].getContext("2d");
-    nbRay = document.getElementById('numberOfRay').value;
-    angle = 180 / (parseInt(nbRay) + 2);
-    console.log("l'angle de depart des Rays est de :" + angle + " degreeé");
+	var tabRay= [];
+    var canvas = $("#canvasGlobe");
+    var ctxL = canvas[0].getContext("2d");
+    var nbRay = document.getElementById('numberOfRay').value;
+    var angle = 180 / (parseInt(nbRay) + 2);
+    console.log("l'angle séparant les Rays au départ est de :" + angle + " degreeé");
     drawLine(300, 56, 250, 200, ctxL);
+    
+    for (var i=0; i<nbRay; i++) {
+    	tabRay[i]  = new Ray(angle);
+    }
 
 }
 function drawLine(fromX, fromY, toX, toY, ctx) {
