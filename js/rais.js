@@ -59,7 +59,7 @@ Rai.prototype.angleSurf = function() {
 	return angle;
 }
 
-Rai.prototype.vitesse = function() {
+Rai.prototype.vitesse2 = function() {
 	var v = 0;
 	/*
 	 * À partir du tableau de vitesses, retourne la valeur de vitesse correspondant à la profondeur (this.prof)
