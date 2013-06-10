@@ -165,13 +165,18 @@ function startGeneration() {
     for (var i = 0; i < r.nbRais; i++) {
         tabRais[i] = new Rai(r.angle * i);
     }
+<<<<<<< HEAD
     tabRaisEnCours = (function (x) {
+=======
+    tabRaisEnCour = (function (x) {
+>>>>>>> e32a010f06e27e4896e131b0dc1bf629364e556c
         var tab = [];
         for (var i = 0; i < x; i++) {
             tab.push(i);
         }
         return tab;
     })(r.nbRais)
+<<<<<<< HEAD
     console.log(tabRaisEnCours);
 
     var xA = 0, xB = 0, yA = 0, yB = 0, position = {x : 0, y : 0};
@@ -204,4 +209,7 @@ function startGeneration() {
             console.log(xA, yA, position.x, position.y);
         }
     }
+=======
+    console.log(tabRaisEnCour);
+>>>>>>> e32a010f06e27e4896e131b0dc1bf629364e556c
 }
