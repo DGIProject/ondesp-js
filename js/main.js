@@ -30,8 +30,8 @@ dragOn.apply(document.getElementById("dragBox"), {
 });
 
 canvas.on('mousemove', ctx, showValues);
-circle(350, 350, 300); //Terre
-circle(515, 100, 4, "FF4422") //pount de depart
+circle(400, 400, 300); //Terre
+//circle(515, 100, 4, "FF4422") //pount de depart
 
 function clicCanevas(event) {
     var x = event.pageX - $('#canvas').offset().left;
@@ -80,7 +80,7 @@ function circle(x, y, radus, color) {
 }
 function calculateRay() {
     var nbRay = document.getElementById('numberOfRay').value;
-    var angle = 180 / (parseInt(nbRay) + 2);
+    var angle = 180 / (parseInt(nbRay) + 1);
     console.log("l'angle de depart des Rays est de :" + angle + " degreeé");
     return {angle: angle, nbRais: nbRay};
 }
@@ -144,9 +144,10 @@ function makeTabVitesse() {
     for (i3 = 0; i3 < tabvitesspx.length; i3++) {
         var propValueX = tabvitesspx[i3][0] * 6500 / 650
         var propValueY = 125 - (1 / 4 * tabvitesspx[i3][1]);
-        temp = [propValueX, propValueY]
+        temp = propValueY
         tableauViteseProf.push(temp);
     }
+    terre.tabVitesses = tableauViteseProf;
 }
 function minimizeGraph() {
     document.getElementById("dragBox").style.display = 'none';
@@ -159,10 +160,10 @@ function maximizeGraph() {
 }
 
 function startGeneration() {
-    alert("Hi !");
+    //alert("Hi !");
     var tabRais = [];
     var r = calculateRay();
-    for (var i = 0; i < r.nbRais; i++) {
+    for (var i = 1; i < r.nbRais; i++) {
         tabRais[i] = new Rai(r.angle * i);
     }
     tabRaisEnCour = (function (x) {
@@ -172,5 +173,55 @@ function startGeneration() {
         }
         return tab;
     })(r.nbRais)
+
     console.log(tabRaisEnCour);
+
+    var xA = 0, xB = 0, yA = 0, yB = 0, position = {x: 0, y: 0};
+
+    for (var i = 0; i < 100; i++) {
+
+        for (var j = 1, jMax = tabRaisEnCour.length; j < jMax; j++) {
+            xA = tabRais[j].posX;
+            yA = tabRais[j].posY;
+
+            tabRais[j].vitessePrecedente = tabRais[j].vitesse;
+            tabRais[j].vitesse = tabRais[j].vitesse2();
+            position = tabRais[j].nouvellePosition();
+            tabRais[j].angleIncidence = tabRais[j].nouvelAngle();
+
+
+            ctxGlobe.beginPath();
+            ctxGlobe.moveTo(xA, yA);
+            ctxGlobe.lineTo(position.x, position.y);
+            ctxGlobe.strokeStyle = tabRais[j].couleur;
+            ctxGlobe.stroke();
+
+            tabRais[j].posX = position.x;
+            tabRais[j].posY = position.y;
+            tabRais[j].prof = tabRais[j].profondeur();
+
+            console.log(tabRais[j], j, i)
+        }
+    }
+
+    /*
+     xA = tabRais[1].posX;
+     yA = tabRais[1].posY;
+
+     tabRais[1].vitessePrecedente = tabRais[1].vitesse;
+     tabRais[1].vitesse = tabRais[1].vitesse2();
+     position = tabRais[1].nouvellePosition();
+     tabRais[1].angleIncidence = tabRais[1].nouvelAngle();
+
+     ctxGlobe.beginPath();
+     ctxGlobe.moveTo(xA, yA);
+     ctxGlobe.lineTo(position.x, position.y);
+     ctxGlobe.strokeStyle = '#FF4422';
+     ctxGlobe.stroke();
+
+     tabRais[1].posX = position.x;
+     tabRais[1].posY = position.y;
+     tabRais[1].prof = tabRais[1].profondeur();
+
+     console.log(tabRais[1])*/
 }
