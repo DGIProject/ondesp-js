@@ -163,8 +163,8 @@ function startGeneration() {
     //alert("Hi !");
     var tabRais = [];
     var r = calculateRay();
-    for (var i = 1; i < r.nbRais; i++) {
-        tabRais[i] = new Rai(r.angle * i);
+    for (var i = 0; i < r.nbRais; i++) {
+        tabRais[i] = new Rai(r.angle * (i+1) );
     }
     tabRaisEnCour = (function (x) {
         var tab = [];
@@ -176,31 +176,30 @@ function startGeneration() {
 
     console.log(tabRaisEnCour);
 
-    var xA = 0, xB = 0, yA = 0, yB = 0, position = {x: 0, y: 0};
+    var xA = 0, xB = 0, yA = 0, yB = 0, position = {x: 0, y: 0}, t = {};
 
     for (var i = 0; i < 100; i++) {
 
-        for (var j = 1, jMax = tabRaisEnCour.length; j < jMax; j++) {
-            xA = tabRais[j].posX;
-            yA = tabRais[j].posY;
+        for (var j = 0, jMax = tabRaisEnCour.length; j < jMax; j++) {
+        	t = tabRais[ tabRaisEnCour[j] ];
+        	//if (t.prof<0) continue;
+            xA = t.posX;
+            yA = t.posY;
 
-            tabRais[j].vitessePrecedente = tabRais[j].vitesse;
-            tabRais[j].vitesse = tabRais[j].vitesse2();
-            position = tabRais[j].nouvellePosition();
-            tabRais[j].angleIncidence = tabRais[j].nouvelAngle();
+            t.vitessePrecedente = t.vitesse;
+            t.vitesse = t.vitesse2();
+            t.nouvellePosition();
+            t.angleIncidence = t.nouvelAngle();
 
 
             ctxGlobe.beginPath();
             ctxGlobe.moveTo(xA, yA);
-            ctxGlobe.lineTo(position.x, position.y);
-            ctxGlobe.strokeStyle = tabRais[j].couleur;
+            ctxGlobe.lineTo(t.posX, t.posY);
+            ctxGlobe.strokeStyle = t.couleur;
             ctxGlobe.stroke();
 
-            tabRais[j].posX = position.x;
-            tabRais[j].posY = position.y;
-            tabRais[j].prof = tabRais[j].profondeur();
-
-            console.log(tabRais[j], j, i)
+            
+            console.log(tabRaisEnCour[j], t, j, i)
         }
     }
 

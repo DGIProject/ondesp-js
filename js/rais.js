@@ -16,7 +16,7 @@ terre = {
         posX: 400,
         posY: 100
     },
-    pasTemporel: 100,
+    pasTemporel: 10,
     echelle: 0 //this.rayon/6500 /*(function(t){return t.rayon/6500})(this)*/
 }
 terre.echelle = terre.rayon / 6500;
@@ -83,13 +83,16 @@ Rai.prototype.nouvellePosition = function () {
     var distance = this.vitesse * terre.pasTemporel * terre.echelle;
     var inclinaisonSurface = this.angleSurf();
 
-    posX = this.posX + Math.floor(distance * Math.sin(this.angleIncidence - inclinaisonSurface));
-    posY = this.posY + Math.floor(distance * Math.cos(this.angleIncidence - inclinaisonSurface));
+    this.posX += Math.floor(distance * Math.sin(this.angleIncidence /*- inclinaisonSurface*/));
+    this.posY += Math.floor(distance * Math.cos(this.angleIncidence /*- inclinaisonSurface*/));
 
-    return {
-        x: posX,
-        y: posY
-    }
+    this.prof = this.profondeur();
+    /*if (this.prof<0) {
+    	var distance = terre.rayon - this.prof;
+    	this.posX = (terre.posX + (terre.rayon/distance) * (terre.posX - this.posX)) | 0;
+    	this.posY = (terre.posY + (terre.rayon/distance) * (terre.posY - this.posY)) | 0;
+    	
+    }*/
 }
 
 Rai.prototype.nouvelAngle = function () {
